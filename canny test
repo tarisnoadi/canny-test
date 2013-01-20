@@ -1,0 +1,22 @@
+#include "opencv\cv.h"
+#include "opencv\highgui.h"
+
+int main(void)
+{
+ IplImage* src=cvLoadImage("D:/editan.jpg");// load the image
+ IplImage* graysrc;// pointer to store the gray scale image
+ IplImage* cannyedge;// pointer to store the output image
+ cvNamedWindow("Source Image", CV_WINDOW_AUTOSIZE );
+ cvNamedWindow( "Canny Edge", CV_WINDOW_AUTOSIZE );
+        cannyedge=cvCreateImage( cvGetSize(src),8,1);
+ graysrc=cvCreateImage( cvGetSize(src),8,1);
+ cvCvtColor(src, graysrc,CV_RGB2GRAY );// convert RGB image to Gray scale image
+ cvCanny( graysrc, cannyedge, 200, 200, 3);// implement canny function
+ cvShowImage("Source Image",src);
+ cvShowImage( "Canny Edge",cannyedge );
+    cvWaitKey(0);
+    cvReleaseImage( &cannyedge );// release image from memory
+    cvDestroyWindow( "Canny Edge" );// destroy the window
+    cvReleaseImage( &src );
+    cvDestroyWindow("Source Image");
+}
